@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.douzone.mysite.mvc.util.MvcUtil;
+import com.douzone.mvc.Action;
+import com.douzone.mysite.mvc.main.MainActionFactory;
 
 
 // @WebServlet({"/main","/"})
@@ -17,8 +18,11 @@ public class MainController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String action = request.getParameter("a");		
-		MvcUtil.forward("main/index", request, response);
+
+		String actionName = request.getParameter("a");
+
+		Action action = new MainActionFactory().getAction(actionName);
+		action.execute(request, response);
 			
 	}
 

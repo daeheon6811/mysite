@@ -4,16 +4,16 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="<%=request.getContextPath()%>/assets/css/main.css" rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath() %>/assets/css/user.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-		 <jsp:include page="/WEB-INF/views/include/header.jsp"/>		</div>
+		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<div id="content">
 			<div id="user">
-
-				<form id="join-form" name="joinForm" method="" action="">
+				<form id="join-form" name="joinForm" method="" action="<%=request.getContextPath() %>/user">
+				   <input type ="hidden" name ="a" value ="join"/>   
+				   
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="">
 
@@ -41,12 +41,9 @@
 				</form>
 			</div>
 		</div>
-		<div id="navigation">
-		 <jsp:include page="/WEB-INF/views/include/nevigation.jsp"/>
-		</div>
-		<div id="footer">
- <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
-		</div>
+		
+		<jsp:include page="/WEB-INF/views/include/nevigation.jsp" />
+		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
 </html>

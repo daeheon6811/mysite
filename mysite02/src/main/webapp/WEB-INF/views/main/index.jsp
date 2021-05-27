@@ -9,7 +9,9 @@
 </head>
 <body>
 	<div id="container">
+	<div id="header">
 	 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
+	 </div>
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">
