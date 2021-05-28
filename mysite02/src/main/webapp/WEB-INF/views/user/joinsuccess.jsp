@@ -8,7 +8,9 @@
 </head>
 <body>
 	<div id="container">
-		<jsp:include page="/WEB-INF/views/include/header.jsp" />
+		<div id="header">
+	 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
+	 </div>
 		<div id="content">
 			<div id="user">
 				<p class="jr-success">
