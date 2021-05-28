@@ -193,4 +193,47 @@ public class UserRepository {
 		return result;
 	}
 
+	public UserVo findByNo(Long userNo) {
+		UserVo result = null;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			String sql = "select name , password " + "  from user" + " where no=?";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, userNo);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				String name = rs.getString(2);
+				String password = rs.getString(2);
+				result = new UserVo();
+				result.setPassword(password);
+				result.setName(name);
+			}
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
+
 }
