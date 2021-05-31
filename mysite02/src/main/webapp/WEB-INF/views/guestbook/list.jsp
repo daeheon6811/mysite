@@ -35,15 +35,15 @@
 					</table>
 				</form>
 				<ul>
-					<c:set var="count" value="${fn:length(list) }"/>
-					<c:forEach items="${list }" var="vo" varStatus="status">
+					<c:set var="count" value=" ${fn:length(list) }"/>
+					<c:forEach items="${list}" var="vo" varStatus="status">
 						<li>
 							<table>
 								<tr>
-									<td>[${count-status.index }]</td>
-									<td>${vo.name }</td>
+									<td>[${status.index}]</td>
+									<td>${vo.name}</td>
 									<td>${vo.regDate }</td>
-									<td><a href="${pageContext.request.contextPath }/guestbook?a=deleteform&no=${vo.no }">삭제</a></td>
+									<td><a href="${pageContext.request.contextPath }/guestbook?a=deleteform&no=${vo.no}">삭제</a></td>
 								</tr>
 								<tr>
 									<td colspan=4>
