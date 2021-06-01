@@ -73,6 +73,13 @@ public class BoardVo {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	@Override
+	public String toString() {
+		return "BoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", redDate=" + redDate + ", hit="
+				+ hit + ", groupNo=" + groupNo + ", orderNo=" + orderNo + ", depth=" + depth + ", userNo=" + userNo
+				+ ", userName=" + userName + "]";
+	}
+	
 	
 	
 

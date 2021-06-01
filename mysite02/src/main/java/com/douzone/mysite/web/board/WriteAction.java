@@ -24,6 +24,8 @@ public class WriteAction implements Action {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
 		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		Integer maxGroupNo = new BoardRepository().findMaxGroupNo();
+		System.out.println("maxGroupNo:" + maxGroupNo);
 		Date time = new Date();
 		String Cureenttime = format.format(time);
 		
@@ -32,8 +34,8 @@ public class WriteAction implements Action {
 		boardVo.setContents(request.getParameter("contents"));
 		boardVo.setHit(0);
 		boardVo.setDepth(0);
-		boardVo.setGroupNo(0);
-		boardVo.setOrderNo(0);
+		boardVo.setGroupNo(maxGroupNo + 1);
+		boardVo.setOrderNo(1);
 		boardVo.setUserNo(authUser.getNo());
 		
 		new BoardRepository().insert(boardVo);

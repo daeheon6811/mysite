@@ -34,23 +34,23 @@
 
 
 					<c:set var="count" value=" ${fn:length(list) }" />
-					<c:forEach items="${list}" var="vo" varStatus="status" begin ="0">
+					<c:forEach items="${list}" var="vo" varStatus="status" begin="0">
 						<tr>
-						<c:choose>
+							<c:choose>
 								<c:when test="${curPageNum eq 0 }">
-					          <td>${status.index }</td>
+									<td>${status.index }</td>
 								</c:when>
 								<c:otherwise>
-								<td>${ status.index + (curPageNum * 5)  - 5 }</td>
+									<td>${ status.index + (curPageNum * 5)  - 5 }</td>
 								</c:otherwise>
 							</c:choose>
-							
+
 							<td><a
 								href="${pageContext.request.contextPath}/board?a=view&no=${vo.no}">${vo.title}</a></td>
 							<td>${vo.userName}</td>
 							<td>${vo.hit}</td>
 							<td>${vo.redDate}</td>
-			
+
 							<c:choose>
 								<c:when test="${authUser.no eq vo.userNo}">
 									<td><a

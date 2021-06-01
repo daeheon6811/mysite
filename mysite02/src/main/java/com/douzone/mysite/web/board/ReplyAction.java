@@ -27,22 +27,26 @@ public class ReplyAction implements Action {
 		int depth = Integer.parseInt(request.getParameter("depth"));
 		
 		Long parentNo = Long.parseLong(request.getParameter("no"));
-		Boolean result= new BoardRepository().replyUpdate(groupNo, (orderNo+1));
+		System.out.println("orderNo: " + orderNo);
+		// Boolean result= new BoardRepository().replyUpdate(groupNo, (orderNo+1));
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("contents");
 		
 		BoardVo vo = new BoardVo();
-		System.out.println("vo:" + vo);
-
+	
+	
+		System.out.println("orderNo: " + orderNo);
 		vo.setTitle(title);
 		vo.setContents(content);
 		vo.setHit(0);
 		vo.setGroupNo(groupNo);
-		vo.setOrderNo(orderNo+1);
-		vo.setDepth(depth+1);
+		vo.setOrderNo(orderNo + 1);
+		vo.setDepth(depth + 1);
 		vo.setUserNo(authUser.getNo());
 
+		
+		System.out.println("vo값 이후 값 출력 : " + vo);
 		new BoardRepository().insert(vo);
 		
 

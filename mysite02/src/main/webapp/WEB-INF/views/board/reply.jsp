@@ -23,7 +23,7 @@
 					<input type = "hidden" name = "a" value="reply">
 					<input type = "hidden" name = "no" value="${vo.no}">
 					<input type = "hidden" name = "groupNo" value="${vo.groupNo}">
-					<input type = "hidden" name = "orderNo" value="${vo.groupNo}">
+					<input type = "hidden" name = "orderNo" value="${vo.orderNo}">
 					<input type = "hidden" name = "depth" value="${vo.depth}">
 
 					

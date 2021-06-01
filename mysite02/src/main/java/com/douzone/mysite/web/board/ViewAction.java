@@ -30,7 +30,10 @@ public class ViewAction implements Action {
 		request.setAttribute("contents", boardvo.getContents());
 		request.setAttribute("no", no);
 		request.setAttribute("userNo", boardvo.getUserNo());
+		
+		
 	
+		
 		
 		MvcUtil.forward("board/view", request, response);
 		//request.setAttribute("reg_date", boardvo.getTitle());

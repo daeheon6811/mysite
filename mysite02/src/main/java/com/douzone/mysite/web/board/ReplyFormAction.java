@@ -19,6 +19,9 @@ public class ReplyFormAction implements Action {
 		
 		BoardVo vo = new BoardRepository().findByNo(no);
 		
+		System.out.println("vo값 출력 : " + vo);
+		
+		
 		request.setAttribute("vo", vo);
 	
 		MvcUtil.forward("board/reply", request, response);

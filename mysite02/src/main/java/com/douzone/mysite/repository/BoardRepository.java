@@ -481,6 +481,80 @@ public class BoardRepository {
 		return vo;
 	}
 	
+	public int findMaxGroupNo() {
+		int result = 0;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select max(group_no) " + "from board";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error " + e);
+		} finally {
+			try {
+
+				if (pstmt != null) {
+					pstmt.close();
+				}
+
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error " + e);
+			}
+		}
+		return result;
+	}
+	public int findMaxOrderNo() {
+		int result = 0;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "select max(order_no) " + "from board";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error " + e);
+		} finally {
+			try {
+
+				if (pstmt != null) {
+					pstmt.close();
+				}
+
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error " + e);
+			}
+		}
+		return result;
+	}
 	public void updateHit(Long no) {
 	
 		Connection conn = null;
