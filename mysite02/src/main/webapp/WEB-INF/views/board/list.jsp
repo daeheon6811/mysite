@@ -45,8 +45,19 @@
 								</c:otherwise>
 							</c:choose>
 
-							<td><a
+                                 <c:choose>
+					          	<c:when test="${vo.depth eq 0 }">
+										<td style="text-align:left; padding-left:${vo.depth * 20}px ">  <a
 								href="${pageContext.request.contextPath}/board?a=view&no=${vo.no}">${vo.title}</a></td>
+						
+								</c:when>
+								<c:otherwise>
+									<td style="text-align:left; padding-left:${vo.depth * 20}px ">   
+									<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png'/><a
+								href="${pageContext.request.contextPath}/board?a=view&no=${vo.no}">${vo.title}</a></td>
+								</c:otherwise>
+							</c:choose>
+
 							<td>${vo.userName}</td>
 							<td>${vo.hit}</td>
 							<td>${vo.redDate}</td>
