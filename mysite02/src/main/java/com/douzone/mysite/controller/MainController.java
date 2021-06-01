@@ -1,4 +1,4 @@
-package com.douzone.web.controller;
+package com.douzone.mysite.controller;
 
 import java.io.IOException;
 
@@ -14,6 +14,16 @@ import com.douzone.mysite.web.main.MainActionFactory;
 // @WebServlet({"/main","/"})
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	
+	
+
+	@Override
+	public void init() throws ServletException {
+		String configpath=  getServletConfig().getInitParameter("config");
+		System.out.println("MainController.init().called" + configpath);
+		super.init();
+	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

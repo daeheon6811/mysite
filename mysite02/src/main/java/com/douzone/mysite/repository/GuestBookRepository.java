@@ -70,7 +70,7 @@ public class GuestBookRepository {
 	
 	
     
-	public Boolean Delete(int no , String password) {
+	public Boolean deleteGuestBook(int no , String password) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		boolean result = false;

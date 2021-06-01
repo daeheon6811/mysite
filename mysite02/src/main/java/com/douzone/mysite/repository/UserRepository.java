@@ -5,10 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.douzone.mysite.vo.GuestBookVo;
 import com.douzone.mysite.vo.UserVo;
 
 public class UserRepository {
@@ -97,56 +94,7 @@ public class UserRepository {
 		return result;
 	}
 
-	public List<GuestBookVo> findAll() {
-		List<GuestBookVo> result = new ArrayList<>();
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			String sql = "select no , name , password , message , reg_date from guestbook";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				Long no = rs.getLong(1);
-				String name = rs.getString(2);
-				String password = rs.getString(3);
-				String message = rs.getString(4);
-				String regdate = rs.getString(5);
-
-				GuestBookVo vo = new GuestBookVo();
-				vo.setNo(no);
-				vo.setName(name);
-				vo.setPassword(password);
-				vo.setMessage(message);
-				vo.setRegDate(regdate);
-
-				result.add(vo);
-			}
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
+	
 
 	public UserVo findByEmailAndPassword(String email, String password) {
 		UserVo result = null;

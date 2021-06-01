@@ -31,7 +31,7 @@ public class AddAction implements Action{
 		new GuestBookRepository().insert(vo);
 
 		// 2 redirect 응답
-		MvcUtil.forward("guestbook/list", request, response);
+		MvcUtil.redirect(request.getContextPath() + "/guestbook?a=guestbook", request, response);
 		
 	}
 }
