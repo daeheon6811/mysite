@@ -36,7 +36,7 @@ public class BoardRepository {
 		try {
 			conn = getConnection();
 			
-			String sql = " insert into board values(null , ? , ? , now(), ? , ? ,? , ? ,? )";
+			String sql = " insert into board values(null , ? , ? ,  sysdate(), ? , ? ,? , ? ,? )";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
