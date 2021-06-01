@@ -225,7 +225,7 @@ public class BoardRepository {
 		try {
 			conn = getConnection();
 			
-			String sql =" select title , contents , reg_date from board where no = ?" ;
+			String sql =" select title , contents , reg_date , user_no from board where no = ?" ;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, no);
 			rs = pstmt.executeQuery();
@@ -234,11 +234,13 @@ public class BoardRepository {
 				String title = rs.getString(1);
 				String contents = rs.getString(2);
 				String regDate = rs.getString(3);
+				Long userNo = rs.getLong(4);
 
 				vo = new BoardVo();
 				vo.setTitle(title);
 				vo.setContents(contents);
 				vo.setRedDate(regDate);
+				vo.setUserNo(userNo);
 				
 			}
 		} catch (SQLException e) {

@@ -30,7 +30,7 @@ public class UpdateFormAction implements Action {
 		}
 	
 		Long userNo = authUser.getNo();
-		 UserVo userVo = new UserRepository().findByNo(userNo);
+		UserVo userVo = new UserRepository().findByNo(userNo);
 		request.setAttribute("userVo", userVo);
 		
 		

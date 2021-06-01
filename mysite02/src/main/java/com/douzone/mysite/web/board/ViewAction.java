@@ -19,7 +19,7 @@ public class ViewAction implements Action {
 
 		
 		Long no = Long.parseLong( request.getParameter("no"));
-	
+
 		
 		BoardVo boardvo =  new BoardRepository().findByNo(no); // title , 내용 받아옴
 		
@@ -29,7 +29,7 @@ public class ViewAction implements Action {
 		request.setAttribute("title", boardvo.getTitle());
 		request.setAttribute("contents", boardvo.getContents());
 		request.setAttribute("no", no);
-		
+		request.setAttribute("userNo", boardvo.getUserNo());
 		
 		MvcUtil.forward("board/view", request, response);
 		//request.setAttribute("reg_date", boardvo.getTitle());

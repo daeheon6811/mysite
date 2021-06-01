@@ -42,10 +42,17 @@
 							<td>${vo.userName}</td>
 							<td>${vo.hit}</td>
 							<td>${vo.redDate}</td>
-							<td><a
-								href="${pageContext.request.contextPath}/board?a=delete&no=${vo.no}"
-								class="del">삭제</a></td>
+			
+							<c:choose>
+								<c:when test="${authUser.no eq vo.userNo}">
+									<td><a
+										href="${pageContext.request.contextPath}/board?a=delete&no=${vo.no}"
+										class="del">삭제</a></td>
+								</c:when>
+							</c:choose>
 						</tr>
+
+
 					</c:forEach>
 
 				</table>
@@ -59,7 +66,8 @@
 						</c:if>
 
 						<c:if test="${ curPageNum > 5 }">
-							<li><a href="${pageContext.request.contextPath}/board?a=board&page=${ blockStartNum - 1 }">◀</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/board?a=board&page=${ blockStartNum - 1 }">◀</a></li>
 						</c:if>
 
 						<c:forEach var="i" begin="${ blockStartNum }"
@@ -76,7 +84,8 @@
 										href="${pageContext.request.contextPath}/board?a=board&page=${ i }&kwd=${ kwd }">${ i }</a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="${pageContext.request.contextPath}/board?a=board&page=${ i }">${ i }</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/board?a=board&page=${ i }">${ i }</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -87,7 +96,8 @@
 						</c:if>
 
 						<c:if test="${ lastPageNum > blockLastNum }">
-							<li><a href="${pageContext.request.contextPath}/board?a=board&page=${ blockLastNum + 1 }">▶</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/board?a=board&page=${ blockLastNum + 1 }">▶</a></li>
 						</c:if>
 					</ul>
 				</div>
