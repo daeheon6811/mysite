@@ -60,41 +60,8 @@ public class UserRepository {
 		return result;
 	}
 
-	public Boolean Delete(int no, String password) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		boolean result = false;
 
-		try {
-			conn = getConnection();
-			String sql = "delete from guestbook where no = ? and password = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			pstmt.setString(2, password);
 
-			int count = pstmt.executeUpdate();
-			result = count == 1;
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				// 자원정리(clean-up)
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
-
-	
 
 	public UserVo findByEmailAndPassword(String email, String password) {
 		UserVo result = null;
@@ -150,18 +117,20 @@ public class UserRepository {
 		try {
 			conn = getConnection();
 
-			String sql = "select name , password " + "  from user" + " where no=?";
+			String sql = "select name , password , gender  from user  where no=?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setLong(1, userNo);
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				String name = rs.getString(2);
+				String name = rs.getString(1);
 				String password = rs.getString(2);
+				String gender = rs.getString(3);
 				result = new UserVo();
 				result.setPassword(password);
 				result.setName(name);
+				result.setGender(gender);
 			}
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -183,5 +152,41 @@ public class UserRepository {
 
 		return result;
 	}
+	public void updateUserNamePassword(String name , String password , String gender, Long no) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
 
+		try {
+			conn = getConnection();
+			String sql = "update user set name = ? , password = ? ,  gender = ? where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, name);
+			pstmt.setString(2, password);
+			pstmt.setString(3, gender);
+			pstmt.setLong(4, no);			
+
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				// 자원정리(clean-up)
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		
+	}
 }
