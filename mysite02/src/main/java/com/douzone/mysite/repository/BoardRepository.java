@@ -208,6 +208,72 @@ public class BoardRepository {
 		
 		return result;
 	}
+	public List<BoardVo> findAllSearch(String searchValue , int first , int second) {
+		List<BoardVo> result = new ArrayList<>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql =" select a.no ,  a.title  , a.contents , a.reg_date, a.depth , a.hit , b.no as user_no , b.name"
+					+ " from board a ,user b"
+					+ " where a.user_no = b.no"
+					+ " and a.title like '%" + searchValue + "%'"
+					+ " order by a.no desc , a.group_no  desc  , a.order_no asc limit ? , ?" ;
+			pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, first);
+					pstmt.setInt(2, second);
+					
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				Long no = rs.getLong(1);
+				String title = rs.getString(2);
+				String contents = rs.getString(3);
+				String regDate = rs.getString(4);
+				int depth = rs.getInt(5);
+				int hit = rs.getInt(6);
+				Long userNo = rs.getLong(7);
+				String userName = rs.getString(8);
+	
+
+				
+				BoardVo vo = new BoardVo();
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setContents(contents);
+				vo.setRedDate(regDate);
+				vo.setDepth(depth);
+				vo.setHit(hit);
+				vo.setUserNo(userNo);
+				vo.setUserName(userName);
+		
+				
+				result.add(vo);			
+			}
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
 
 
 

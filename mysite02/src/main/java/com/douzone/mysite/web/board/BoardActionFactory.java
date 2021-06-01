@@ -30,9 +30,7 @@ public class BoardActionFactory extends ActionFactory{
 		else if ("modify".equals(actionName)) {
 			action = new ModifyAction();
 			}
-		else if ("search".equals(actionName)) {
-			action = new SearchAction();
-		}
+	
 		else {
 			 action = new ListAction();
 		}

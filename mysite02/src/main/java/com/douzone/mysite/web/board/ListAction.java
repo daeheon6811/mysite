@@ -32,13 +32,18 @@ public class ListAction implements Action {
 		
 
 		Paging paging = new Paging();
-
+		
+		String searchValue = request.getParameter("kwd");
+		
+		if(searchValue == null || searchValue.isEmpty()) {
+			searchValue ="";
+		}
 		String cp = request.getParameter("page");
 
 		/* 최초 홈페이지 입장 */
 		if (cp == null || "null".equals(cp)) {
 			paging.makeBlock(cureentPage);
-			paging.makeLastPageNum();
+			paging.makeLastPageNum(searchValue);
 			blockStartNum = paging.getBlockStartNum(); // 그룹 번호
 			blockLastNum = paging.getBlockLastNum();
 			lastPageNum = paging.getLastPageNum();
@@ -47,7 +52,7 @@ public class ListAction implements Action {
 
 			cureentPage = Integer.parseInt(request.getParameter("page"));
 			paging.makeBlock(cureentPage);
-			paging.makeLastPageNum();
+			paging.makeLastPageNum(searchValue);
 			blockStartNum = paging.getBlockStartNum(); // 그룹 번호
 			blockLastNum = paging.getBlockLastNum();
 			lastPageNum = paging.getLastPageNum();
@@ -64,7 +69,7 @@ public class ListAction implements Action {
 		}
 		second = (cureentPage * pagesize) + (pagesize - 1);
 
-		List<BoardVo> list = new BoardRepository().findAll(first, pagesize);
+		List<BoardVo> list = new BoardRepository().findAllSearch(searchValue,first, pagesize);
 
 		request.setAttribute("list", list);
 		MvcUtil.forward("board/list", request, response);
