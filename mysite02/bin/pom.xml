@@ -4,8 +4,7 @@
     <groupId>com.douzone</groupId>
     <artifactId>mysite</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-      </parent>
-
+  </parent>
   <artifactId>mysite02</artifactId>
   <packaging>war</packaging>
   	<dependencies>

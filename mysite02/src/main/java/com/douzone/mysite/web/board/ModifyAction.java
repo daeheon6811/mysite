@@ -20,7 +20,6 @@ public class ModifyAction implements Action {
 		String title = 	request.getParameter("title");
 		String contents = 	request.getParameter("contents");
 		BoardVo boardvo = new BoardRepository().updateView(no , title , contents);
-		
 		MvcUtil.redirect(request.getContextPath() + "/board?a=board", request, response);
 		
 		
