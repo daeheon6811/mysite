@@ -14,13 +14,23 @@
 		<div id="header">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 		</div>
+		
+	
+		
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath}/board">
 					<input type = "hidden" name = "a" value="reply">
+					<input type = "hidden" name = "no" value="${vo.no}">
+					<input type = "hidden" name = "groupNo" value="${vo.groupNo}">
+					<input type = "hidden" name = "orderNo" value="${vo.groupNo}">
+					<input type = "hidden" name = "depth" value="${vo.depth}">
+
+					
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
+					
 						</tr>
 						<tr>
 							<td class="label">제목</td>
