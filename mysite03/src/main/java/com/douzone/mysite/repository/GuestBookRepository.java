@@ -42,12 +42,11 @@ public class GuestBookRepository {
 			String sql = "insert "
 					+ "into "
 					+ "guestbook "
-					+ "values(null, ? , ? , ? , ?)";
+					+ "values(null, ? , ? , ? , now())";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getPassword());
 			pstmt.setString(3, vo.getMessage());
-			pstmt.setString(4, vo.getRegDate());
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 			
@@ -73,7 +72,7 @@ public class GuestBookRepository {
 	
 	
     
-	public Boolean deleteGuestBook(int no , String password) {
+	public Boolean deleteGuestBook(Long no , String password) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		boolean result = false;
@@ -82,7 +81,7 @@ public class GuestBookRepository {
 			conn = getConnection();
 			String sql = "delete from guestbook where no = ? and password = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			pstmt.setLong(1, no);
 			pstmt.setString(2, password);
 			
 			int count = pstmt.executeUpdate();
