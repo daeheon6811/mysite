@@ -24,21 +24,21 @@ public class GuestbookController {
 	public String index(Model model) {
 		List<GuestBookVo> list = guestBookService.getMessageList();
 		model.addAttribute("list", list);
-		return "/WEB-INF/views/guestbook/list.jsp";
+		return "/guestbook/list.jsp";
 	}
 
 	@RequestMapping("add")
 	public String add(GuestBookVo vo) {
 
 		guestBookService.addMessage(vo);
-		return "redirect:/guestbook/";
+		return "redirect:/guestbook";
 	}
 
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
 	public String delete(@PathVariable("no") long no, Model model) {
 		System.out.println(no);
 		model.addAttribute("no",no);
-		return "/WEB-INF/views/guestbook/deleteform.jsp";
+		return "/guestbook/deleteform";
 	}
 
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.POST)
