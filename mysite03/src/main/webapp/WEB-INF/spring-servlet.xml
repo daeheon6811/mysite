@@ -9,26 +9,18 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
 	<context:annotation-config />
 	<context:component-scan
-		base-package="com.douzone.mysite.controller" />
+		base-package="com.douzone.mysite.controller , com.douzone.mysite.exception" />
 	<mvc:annotation-driven />
 
 	<mvc:default-servlet-handler />
-
-	<!-- 이 작업들을 어노테이션에서 함!! <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" 
-		> <property name="mappings"> <props> <prop key="/member">memberController</prop> 
-		</props> </property> </bean> <bean id=" memberController" class= "com.example.controller.MemberController"> 
-		</bean> -->
-
-<bean id=＂viewResolver＂ class=＂org.springframework.web.servlet.view.InternalResourceViewResolver＂>
-   <property name=＂viewClass" value="org.springframework.web.servlet.view.JstlView" />
-   <property name="prefix" value="/WEB-INF/views/" />
-   <property name="suffix" value=".jsp" />
-   <property name="order" value="1" />
-</bean>
-
-		
-
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="1" />
+	</bean>
 </beans>

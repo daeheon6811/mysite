@@ -24,7 +24,7 @@ public class GuestbookController {
 	public String index(Model model) {
 		List<GuestBookVo> list = guestBookService.getMessageList();
 		model.addAttribute("list", list);
-		return "/guestbook/list.jsp";
+		return "/guestbook/list";
 	}
 
 	@RequestMapping("add")
@@ -36,7 +36,7 @@ public class GuestbookController {
 
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
 	public String delete(@PathVariable("no") long no, Model model) {
-		System.out.println(no);
+
 		model.addAttribute("no",no);
 		return "/guestbook/deleteform";
 	}
@@ -50,4 +50,12 @@ public class GuestbookController {
 			return "/delete/{no}";
 		}
 	}
+	
+	/*
+	@ExceptionHandler(Exception.class)
+	public String handlerException() {
+		// 1. logging 
+		return "/error/exception"; //2. 사과 페이지 이동	
+	}
+	*/
 }
