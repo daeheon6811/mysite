@@ -19,8 +19,10 @@
 		
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath}/board/reply/${vo.no}/${vo.groupNo}/${vo.orderNo}/${vo.depth}">
-			
+				<form class="board-form" method="post" action="${pageContext.request.contextPath}/board/reply/${vo.no}">
+		        	<input type = "hidden" name = "groupNo" value="${vo.groupNo}">
+					<input type = "hidden" name = "orderNo" value="${vo.orderNo}">
+					<input type = "hidden" name = "depth" value="${vo.depth}">
 
 					
 					<table class="tbl-ex">

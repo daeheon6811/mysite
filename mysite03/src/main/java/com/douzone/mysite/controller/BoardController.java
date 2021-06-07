@@ -17,55 +17,54 @@ import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.UserVo;
 
-
-
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-	
+
 	@Autowired
 	BoardService boardService;
-	
-	@RequestMapping({"/page/{page}/kwd/{kwd}" }  )
-	public String index(@PathVariable("page" ) int page ,  @PathVariable("kwd") String kwd   , Model model) {		
 
-		if(kwd == null || kwd.isEmpty()) {
-			kwd ="";
-		}		
+	@RequestMapping({ "/page/{page}/kwd/{kwd}" })
+	public String index(@PathVariable("page") int page, @PathVariable("kwd") String kwd, Model model) {
+
+		if (kwd == null || kwd.isEmpty()) {
+			kwd = "";
+		}
 		int first = 0;
 		int pagesize = Paging.getPagecount();
 		Paging paging = new Paging();
-		
+
 		int cureentPage = page;
 		paging.makeBlock(cureentPage);
 		paging.makeLastPageNum(kwd);
 		int blockStartNum = paging.getBlockStartNum(); // 그룹 번호
 		int blockLastNum = paging.getBlockLastNum();
 		int lastPageNum = paging.getLastPageNum();
-		
+
 		model.addAttribute("curPageNum", cureentPage);
 		model.addAttribute("blockStartNum", blockStartNum);
 		model.addAttribute("blockLastNum", blockLastNum);
-		model.addAttribute("lastPageNum", lastPageNum); 
+		model.addAttribute("lastPageNum", lastPageNum);
 		if (cureentPage != 0) {
-			 first = (cureentPage * pagesize) - pagesize;
+			first = (cureentPage * pagesize) - pagesize;
 		} else {
-			 first = (cureentPage * pagesize);
+			first = (cureentPage * pagesize);
 		}
 		List<BoardVo> list = boardService.findAllSearch(kwd, first, pagesize);
 		model.addAttribute("list", list);
 		return "/board/list";
 	}
-	@RequestMapping({"page/{page}"}  )
-	public String index(@PathVariable("page" ) int page , Model model) {		
-		String kwd ="";
-		if(kwd == null || kwd.isEmpty()) {
-			kwd ="";
-		}		
+
+	@RequestMapping({ "page/{page}" })
+	public String index(@PathVariable("page") int page, Model model) {
+		String kwd = "";
+		if (kwd == null || kwd.isEmpty()) {
+			kwd = "";
+		}
 		int first = 0;
 		int pagesize = Paging.getPagecount();
 		Paging paging = new Paging();
-		
+
 		int cureentPage = page;
 		paging.makeBlock(cureentPage);
 		paging.makeLastPageNum(kwd);
@@ -75,65 +74,66 @@ public class BoardController {
 		model.addAttribute("curPageNum", cureentPage);
 		model.addAttribute("blockStartNum", blockStartNum);
 		model.addAttribute("blockLastNum", blockLastNum);
-		model.addAttribute("lastPageNum", lastPageNum); 
+		model.addAttribute("lastPageNum", lastPageNum);
 		if (cureentPage != 0) {
-			 first = (cureentPage * pagesize) - pagesize;
+			first = (cureentPage * pagesize) - pagesize;
 		} else {
-			 first = (cureentPage * pagesize);
+			first = (cureentPage * pagesize);
 		}
 		List<BoardVo> list = boardService.findAllSearch(kwd, first, pagesize);
 		model.addAttribute("list", list);
 		return "/board/list";
 	}
+
 	@RequestMapping("")
-	public String index( Model model) {		
-		String kwd ="";
+	public String index(Model model) {
+		String kwd = "";
 		int page = 0;
-		if(kwd == null || kwd.isEmpty()) {
-			kwd ="";
-		}		
+		if (kwd == null || kwd.isEmpty()) {
+			kwd = "";
+		}
 		int first = 0;
-		
+
 		Paging paging = new Paging();
 		int pagesize = Paging.getPagecount();
-		
+
 		int cureentPage = page;
 		paging.makeBlock(cureentPage);
 		paging.makeLastPageNum(kwd);
 		int blockStartNum = paging.getBlockStartNum(); // 그룹 번호
 		int blockLastNum = paging.getBlockLastNum();
 		int lastPageNum = paging.getLastPageNum();
-		
+
 		model.addAttribute("curPageNum", cureentPage);
 		model.addAttribute("blockStartNum", blockStartNum);
 		model.addAttribute("blockLastNum", blockLastNum);
-		model.addAttribute("lastPageNum", lastPageNum); 
+		model.addAttribute("lastPageNum", lastPageNum);
 		if (cureentPage != 0) {
-			 first = (cureentPage * pagesize) - pagesize;
+			first = (cureentPage * pagesize) - pagesize;
 		} else {
-			 first = (cureentPage * pagesize);
+			first = (cureentPage * pagesize);
 		}
 		List<BoardVo> list = boardService.findAllSearch(kwd, first, pagesize);
 
-		
 		model.addAttribute("list", list);
 		return "/board/list";
 	}
+
 	@Auth
-	@RequestMapping(value = "/write" , method = RequestMethod.GET)
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String write(@AuthUser UserVo authUser) {
 		System.out.println("write!");
 		return "/board/write";
 	}
+
 	@Auth
-	@RequestMapping(value = "/write" , method = RequestMethod.POST)
-	public String write(@AuthUser UserVo authUser ,  BoardVo boardVo) {
-	
-		
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String write(@AuthUser UserVo authUser, BoardVo boardVo) {
+
 		int maxGroupNo = boardService.findMaxGroupNo();
-		
-		System.out.println("유저 아이디 : " +  authUser.getNo());
-		
+
+		System.out.println("유저 아이디 : " + authUser.getNo());
+
 		boardVo.setHit(0);
 		boardVo.setDepth(0);
 		boardVo.setGroupNo(maxGroupNo + 1);
@@ -142,60 +142,54 @@ public class BoardController {
 		boardService.insert(boardVo);
 		return "redirect:/board";
 	}
-	
 
-	@RequestMapping(value = "/view/{no}" , method = RequestMethod.GET)
-	public String view(@PathVariable("no") Long no , Model model) {
-	
+	@RequestMapping(value = "/view/{no}", method = RequestMethod.GET)
+	public String view(@PathVariable("no") Long no, Model model) {
+
 		System.out.println(no);
-        BoardVo boardvo =  boardService.findByNo(no);// title , 내용 받아옴
-   
-        boardService.updateHit(boardvo.getHit());
+		BoardVo boardvo = boardService.findByNo(no);// title , 내용 받아옴
+
+		boardService.updateHit(boardvo.getHit());
 		model.addAttribute("title", boardvo.getTitle());
 		model.addAttribute("contents", boardvo.getContents());
 		model.addAttribute("no", no);
 		model.addAttribute("userNo", boardvo.getUserNo());
 		System.out.println(boardvo);
-		
+
 		return "board/view";
 	}
 
 	@Auth
-	@RequestMapping(value = "/modify/{no}" , method = RequestMethod.GET)
-	public String modify(@PathVariable("no") Long no , Model model) {
-	
-		model.addAttribute("no", no);	
+	@RequestMapping(value = "/modify/{no}", method = RequestMethod.GET)
+	public String modify(@PathVariable("no") Long no, Model model) {
+
+		model.addAttribute("no", no);
 		return "board/modify";
 	}
-	
 
-	@RequestMapping(value = "/modify/{no}" , method = RequestMethod.POST)
-	public String modify(@PathVariable("no") Long no , 
-			@RequestParam(value ="title") String title , 
+	@RequestMapping(value = "/modify/{no}", method = RequestMethod.POST)
+	public String modify(@PathVariable("no") Long no, @RequestParam(value = "title") String title,
 			@RequestParam(value = "contents") String contents) {
-	
-		boardService.updateView(no , title , contents);
+
+		boardService.updateView(no, title, contents);
 		return "redirect:/board";
 	}
-	
-	@RequestMapping(value = "/delete/{no}" , method = RequestMethod.GET)
+
+	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
 	public String delete(@PathVariable("no") Long no) {
-	
+
 		boardService.delete(no);
 		return "redirect:/board";
 	}
-	
 
-	@RequestMapping(value = "/reply/{no}/{groupNo}/{orderNo}/{depth}" , method = RequestMethod.POST)
-	public String reply(@AuthUser UserVo authUser ,@PathVariable("no") Long no
-			,@PathVariable(value ="groupNo") int groupNo
-			,@PathVariable(value ="orderNo") int orderNo
-			,@PathVariable(value ="depth") int depth
-			,@RequestParam(value ="title") String title
-			,@RequestParam(value ="contents") String contents) {
+	@RequestMapping(value = "/reply/{no}", method = RequestMethod.POST)
+	public String reply(@AuthUser UserVo authUser, @PathVariable("no") Long no,
+			@RequestParam(value = "groupNo") int groupNo, @RequestParam(value = "orderNo") int orderNo,
+			@RequestParam(value = "depth") int depth, @RequestParam(value = "title") String title,
+			@RequestParam(value = "contents") String contents) {
 
 		BoardVo vo = new BoardVo();
-		System.out.println("orderNo: " + orderNo);
+		System.out.println("orderNo: " + orderNo + "title : " + title);
 		vo.setTitle(title);
 		vo.setContents(contents);
 		vo.setHit(0);
@@ -205,14 +199,15 @@ public class BoardController {
 		vo.setUserNo(authUser.getNo());
 		System.out.println("vo값 이후 값 출력 : " + vo);
 		boardService.insert(vo);
-		
+
 		return "redirect:/board";
 	}
-	
-	@RequestMapping(value = "/reply/{no}" , method = RequestMethod.GET)
-	public String reply(@PathVariable("no") Long no , Model model)
-	{
-		model.addAttribute("no",no);
+
+	@RequestMapping(value = "/reply/{no}", method = RequestMethod.GET)
+	public String reply(@PathVariable("no") Long no, Model model) {
+		BoardVo vo = boardService.findByNo(no);
+		System.out.println("vo값 출력 : " + vo);
+		model.addAttribute("vo", vo);
 		return "board/reply";
 	}
 }

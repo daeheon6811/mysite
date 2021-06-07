@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
-	<select id="findByNo" resultType="com.douzone.mysite.vo.BoardVo"
+	<select id="findByNo" resultType="boardvo"
 		parameterType="long">
 	<![CDATA[
-select a.no, a.title, a.contents, a.reg_date, a.hit, a.group_no, a.order_no, a.depth, b.no, b.name 
+select a.no, a.title, a.contents, a.reg_date as regDate, a.hit, a.group_no, a.order_no, a.depth, b.no, b.name 
 from
 board a, user b
 where a.user_no = b.no 
@@ -14,7 +14,7 @@ and a.no = #{no}
 	</select>
 
 	<insert id="insert"
-		parameterType="com.douzone.mysite.vo.BoardVo">	
+		parameterType="boardvo">	
 	<![CDATA[ 
                     insert into 
                     board 
@@ -59,9 +59,9 @@ select count(*) from board
 
 
 	<select id="findAllSearch" parameterType="map"
-		resultType="com.douzone.mysite.vo.BoardVo">
+		resultType="boardvo">
 <![CDATA[
- select a.no ,  a.title  , a.contents , a.reg_date as regDate, a.depth , a.hit , b.no as UserNo , b.name
+ select a.no ,  a.title  , a.contents , a.reg_date as redDate, a.depth , a.hit , b.no as UserNo , b.name as UserName
  from board a ,user b
 where a.user_no = b.no
 and a.title like concat('%', #{searchValue}, '%')
