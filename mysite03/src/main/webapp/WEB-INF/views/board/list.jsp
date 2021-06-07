@@ -48,13 +48,13 @@
                                  <c:choose>
 					          	<c:when test="${vo.depth eq 0 }">
 										<td style="text-align:left; padding-left:${vo.depth * 20}px ">  <a
-								href="${pageContext.request.contextPath}/board?a=view&no=${vo.no}">${vo.title}</a></td>
+								href="${pageContext.request.contextPath}/board/view/${vo.no}">${vo.title}</a></td>
 						
 								</c:when>
 								<c:otherwise>
 									<td style="text-align:left; padding-left:${vo.depth * 20}px ">   
 									<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png'/><a
-								href="${pageContext.request.contextPath}/board?a=view&no=${vo.no}">${vo.title}</a></td>
+								href="${pageContext.request.contextPath}/board/view/${vo.no}">${vo.title}</a></td>
 								</c:otherwise>
 							</c:choose>
 
@@ -65,7 +65,7 @@
 							<c:choose>
 								<c:when test="${authUser.no eq vo.userNo}">
 									<td><a
-										href="${pageContext.request.contextPath}/board?a=delete&no=${vo.no}"
+										href="${pageContext.request.contextPath}/board/delete/${vo.no}"
 										class="del">삭제</a></td>
 								</c:when>
 							</c:choose>
@@ -81,12 +81,12 @@
 					<ul>
 						<c:if test="${ curPageNum > 5 && !empty kwd }">
 							<li><a
-								href="${pageContext.request.contextPath}/board?&a=board&page=${ blockStartNum - 1 }&kwd=${ kwd }">◀</a></li>
+								href="${pageContext.request.contextPath}/board/page/${ blockStartNum - 1 }/kwd/${ kwd }">◀</a></li>
 						</c:if>
 
 						<c:if test="${ curPageNum > 5 }">
 							<li><a
-								href="${pageContext.request.contextPath}/board?a=board&page=${ blockStartNum - 1 }">◀</a></li>
+								href="${pageContext.request.contextPath}/board/page/${ blockStartNum - 1 }">◀</a></li>
 						</c:if>
 
 						<c:forEach var="i" begin="${ blockStartNum }"
@@ -100,23 +100,23 @@
 								</c:when>
 								<c:when test="${ !empty kwd}">
 									<li><a
-										href="${pageContext.request.contextPath}/board?a=board&page=${ i }&kwd=${ kwd }">${ i }</a></li>
+										href="${pageContext.request.contextPath}/board/page/${ i }/kwd/${ kwd }">${ i }</a></li>
 								</c:when>
 								<c:otherwise>
 									<li><a
-										href="${pageContext.request.contextPath}/board?a=board&page=${ i }">${ i }</a></li>
+										href="${pageContext.request.contextPath}/board/page/${ i }">${ i }</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 
 						<c:if test="${ lastPageNum > blockLastNum && !empty kwd }">
 							<li><a
-								href="${pageContext.request.contextPath}/board?a=search&page=${ blockLastNum + 1 }&kwd=${ kwd }">▶</a></li>
+								href="${pageContext.request.contextPath}/board/page${ blockLastNum + 1 }/kwd/${ kwd }">▶</a></li>
 						</c:if>
 
 						<c:if test="${ lastPageNum > blockLastNum }">
 							<li><a
-								href="${pageContext.request.contextPath}/board?a=board&page=${ blockLastNum + 1 }">▶</a></li>
+								href="${pageContext.request.contextPath}/board/page${ blockLastNum + 1 }">▶</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -124,7 +124,7 @@
 				<c:choose>
 					<c:when test="${not empty authUser }">
 						<div class="bottom">
-							<a href="${pageContext.request.contextPath}/board?a=writeform"
+							<a href="${pageContext.request.contextPath}/board/write"
 								id="new-book">글쓰기</a>
 						</div>
 					</c:when>

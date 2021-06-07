@@ -12,9 +12,34 @@
 	<context:annotation-config />
 	<context:component-scan
 		base-package="com.douzone.mysite.controller , com.douzone.mysite.exception" />
-	<mvc:annotation-driven />
+	<mvc:annotation-driven >
+	  <mvc:argument-resolvers>
+	  <bean class = "com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver"></bean>
+	  </mvc:argument-resolvers>
+	</mvc:annotation-driven>
 
 	<mvc:default-servlet-handler />
+	
+	
+
+	<!-- Interceptros -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/auth" />
+			<bean class="com.douzone.mysite.security.Logininteceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/logout" />
+			<bean class="com.douzone.mysite.security.Logoutinteceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:mapping path="/user/auth" />
+			<mvc:mapping path="/user/logout" />
+			<mvc:mapping path="/assets/**" />
+			<bean class="com.douzone.mysite.security.Authinteceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"

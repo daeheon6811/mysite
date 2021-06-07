@@ -25,12 +25,7 @@ public class ListAction implements Action {
 		int blockStartNum = 0;
 		int blockLastNum = 0;
 		int lastPageNum = 0;
-		int pagesize = Paging.getPagecount();
-		
-
-		
-		
-
+		int pagesize = Paging.getPagecount();		
 		Paging paging = new Paging();
 		
 		String searchValue = request.getParameter("kwd");
