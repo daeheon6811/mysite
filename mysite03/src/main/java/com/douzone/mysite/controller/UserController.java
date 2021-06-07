@@ -50,7 +50,7 @@ public class UserController {
 			model.addAttribute("email", email);
 			return "user/login";
 		}
-
+		
 		// 로그인 처리
 		seesion.setAttribute("authUser", authUser);
 		return "redirect:/";
