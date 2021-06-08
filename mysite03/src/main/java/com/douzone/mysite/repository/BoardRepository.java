@@ -97,7 +97,7 @@ public class BoardRepository {
 		
 		return result;
 	}
-	public void updateHit(int no) {
+	public void updateHit(Long no) {
 	
 		System.out.println("updateHit");
 		sqlSession.update("board.updateHit", no);

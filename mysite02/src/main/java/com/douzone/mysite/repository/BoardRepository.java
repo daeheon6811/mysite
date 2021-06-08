@@ -491,7 +491,7 @@ public class BoardRepository {
 		try {
 			conn = getConnection();
 
-			String sql = "select max(group_no) " + "from board";
+			String sql = "select ifnull(max(group_no),0) " + "from board";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();

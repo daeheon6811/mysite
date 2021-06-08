@@ -59,7 +59,7 @@ public class BoardService {
 		return boardRepository.findMaxOrderNo();
 	}
 	
-	public void updateHit(int no) {
+	public void updateHit(Long no) {
 		 boardRepository.updateHit(no);
 	}
 	

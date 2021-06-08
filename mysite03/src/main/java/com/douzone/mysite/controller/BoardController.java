@@ -25,8 +25,8 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 
-	@RequestMapping({ "/page/{page}/kwd/{kwd}" })
-	public String index(@PathVariable("page") int page, @PathVariable("kwd") String kwd, Model model) {
+	@RequestMapping({ "kwd" })
+	public String index(@RequestParam("kwd") String kwd ,   Model model) {
 
 		if (kwd == null || kwd.isEmpty()) {
 			kwd = "";
@@ -35,7 +35,7 @@ public class BoardController {
 		int pagesize = Paging.getPagecount();
 		Paging paging = new Paging();
 
-		int cureentPage = page;
+		int cureentPage = 0;
 		paging.makeBlock(cureentPage);
 		double  totalpage = boardService.findAllCount();
 		paging.makeLastPageNum(totalpage,kwd);
@@ -155,7 +155,7 @@ public class BoardController {
 		System.out.println(no);
 		BoardVo boardvo = boardService.findByNo(no);// title , 내용 받아옴
 
-		boardService.updateHit(boardvo.getHit());
+		boardService.updateHit(no);
 		model.addAttribute("title", boardvo.getTitle());
 		model.addAttribute("contents", boardvo.getContents());
 		model.addAttribute("no", no);

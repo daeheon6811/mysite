@@ -35,10 +35,12 @@ public class AdminController {
 	@RequestMapping(value = "main/update ", method = RequestMethod.POST)
 	public String updateMain(@ModelAttribute SiteVo vo) {
 		
-		System.out.println(vo);
+		vo.setProfile("/assets/images/profile.jpg");
+		sitesevice.update(vo);
 
 		return "redirect:/admin";
 	}
+
 	
 	@Auth(role =  "ADMIN")
 	@RequestMapping("/guestbook")
