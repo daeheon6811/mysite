@@ -31,11 +31,17 @@ public class Authinteceptor extends HandlerInterceptorAdapter {
 		
 		
 		//3 Handler Method 의 @Auth 받아오기
+		
 		handlerMethod.getMethodAnnotation(Auth.class);
 		
 		Auth auth  = handlerMethod.getMethodAnnotation(Auth.class);
 		
-		//4. Handler Method에 @Auth가 없다
+		//4. Handler Method에 @Auth가 없 으면 Type에 붙어 있는지 확인한다
+		if(auth == null) {
+			 // auth = handlerMethod
+		}
+		
+	    //5. Type이나 Method 둘다 @Auth가 적용이 안되어 있는 경우
 		if(auth == null) {
 			 return true;
 		}
@@ -52,6 +58,9 @@ public class Authinteceptor extends HandlerInterceptorAdapter {
 			return false;	
 		}	
 		
+		// 7 권한(Authoriztion) 체크를 위해서 @Auth의 role 가져오기 ("ADMIN")
+		String role = auth.role();
+		// String authRole = authUser.getRole();
 		return true;
 	}
 
