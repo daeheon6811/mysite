@@ -37,7 +37,7 @@ public class BoardService {
 		return boardRepository.delete(no);
 	}
 	
-	public int findAllCount() {
+	public double findAllCount() {
 		return boardRepository.findAllCount();
 	}
 	

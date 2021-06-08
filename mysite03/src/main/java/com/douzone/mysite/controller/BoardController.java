@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +37,8 @@ public class BoardController {
 
 		int cureentPage = page;
 		paging.makeBlock(cureentPage);
-		paging.makeLastPageNum(kwd);
+		double  totalpage = boardService.findAllCount();
+		paging.makeLastPageNum(totalpage,kwd);
 		int blockStartNum = paging.getBlockStartNum(); // 그룹 번호
 		int blockLastNum = paging.getBlockLastNum();
 		int lastPageNum = paging.getLastPageNum();
@@ -67,7 +69,8 @@ public class BoardController {
 
 		int cureentPage = page;
 		paging.makeBlock(cureentPage);
-		paging.makeLastPageNum(kwd);
+		double  totalpage = boardService.findAllCount();
+		paging.makeLastPageNum(totalpage,kwd);
 		int blockStartNum = paging.getBlockStartNum(); // 그룹 번호
 		int blockLastNum = paging.getBlockLastNum();
 		int lastPageNum = paging.getLastPageNum();
@@ -86,6 +89,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("")
+	@ExceptionHandler(Exception.class)
 	public String index(Model model) {
 		String kwd = "";
 		int page = 0;
@@ -98,8 +102,9 @@ public class BoardController {
 		int pagesize = Paging.getPagecount();
 
 		int cureentPage = page;
+		double  totalpage = boardService.findAllCount();
 		paging.makeBlock(cureentPage);
-		paging.makeLastPageNum(kwd);
+		paging.makeLastPageNum(totalpage , kwd);
 		int blockStartNum = paging.getBlockStartNum(); // 그룹 번호
 		int blockLastNum = paging.getBlockLastNum();
 		int lastPageNum = paging.getLastPageNum();
@@ -143,6 +148,7 @@ public class BoardController {
 		return "redirect:/board";
 	}
 
+
 	@RequestMapping(value = "/view/{no}", method = RequestMethod.GET)
 	public String view(@PathVariable("no") Long no, Model model) {
 
@@ -167,6 +173,7 @@ public class BoardController {
 		return "board/modify";
 	}
 
+	@Auth
 	@RequestMapping(value = "/modify/{no}", method = RequestMethod.POST)
 	public String modify(@PathVariable("no") Long no, @RequestParam(value = "title") String title,
 			@RequestParam(value = "contents") String contents) {
@@ -175,6 +182,7 @@ public class BoardController {
 		return "redirect:/board";
 	}
 
+	@Auth
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
 	public String delete(@PathVariable("no") Long no) {
 
@@ -182,6 +190,7 @@ public class BoardController {
 		return "redirect:/board";
 	}
 
+	@Auth
 	@RequestMapping(value = "/reply/{no}", method = RequestMethod.POST)
 	public String reply(@AuthUser UserVo authUser, @PathVariable("no") Long no,
 			@RequestParam(value = "groupNo") int groupNo, @RequestParam(value = "orderNo") int orderNo,
@@ -203,6 +212,7 @@ public class BoardController {
 		return "redirect:/board";
 	}
 
+	@Auth
 	@RequestMapping(value = "/reply/{no}", method = RequestMethod.GET)
 	public String reply(@PathVariable("no") Long no, Model model) {
 		BoardVo vo = boardService.findByNo(no);

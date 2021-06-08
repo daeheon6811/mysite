@@ -5,17 +5,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/*어노테이션을 어디에 붙여야 되는지*/
-@Target({ElementType.METHOD, ElementType.TYPE})
-@Retention(RetentionPolicy.CLASS)
+@Target( value = {ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Auth {
-	
-	// public String value() default "";
+	//public String value() default "USER";
 	public String role() default "USER";
 	public boolean test() default false;
-	
-	
-	
-	
-
 }

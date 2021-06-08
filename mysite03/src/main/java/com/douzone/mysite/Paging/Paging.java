@@ -1,12 +1,6 @@
 package com.douzone.mysite.Paging;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.douzone.mysite.service.BoardService;
-
 public class Paging {
-	@Autowired
-	BoardService boardService;
 	
 	private final static int pageCount = 5;
 	private int blockStartNum = 0;
@@ -49,9 +43,9 @@ public class Paging {
 		blockLastNum = blockStartNum + (pageCount - 1);
 	}
 
-	public void makeLastPageNum() {
+	public void makeLastPageNum(double total) {
 
-		int total =  10;
+	
 
 		if (total % pageCount == 0) {
 			lastPageNum = (int) Math.floor(total / pageCount);
@@ -61,9 +55,9 @@ public class Paging {
 	}
 
 	// 검색을 했을 때 총 페이지의 마지막 번호
-	public void makeLastPageNum(String kwd) {
+	public void makeLastPageNum(double total , String kwd) {
 
-		int total = 10;
+	
 
 		if (total % pageCount == 0) {
 			lastPageNum = (int) Math.floor(total / pageCount);

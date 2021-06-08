@@ -50,7 +50,7 @@ public class BoardRepository {
 	}
 	
 	
-	public int findAllCount() {
+	public double findAllCount() {
 		
 		System.out.println("findAllCount()");
 		return sqlSession.selectOne("board.findAllCount");

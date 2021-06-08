@@ -29,5 +29,7 @@ public class GuestBookService {
 		guestBookRepository.insert(vo);
 
 	}
+	
+	
 
 }
