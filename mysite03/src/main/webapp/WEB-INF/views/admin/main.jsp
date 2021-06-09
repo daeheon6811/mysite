@@ -29,7 +29,7 @@
 						<label class="block-label">사이트 설명</label>
 						<textarea name="description">${siteVo.description}</textarea>
 						
-						<input type="submit" value="변경" />
+						<input type="submit" value="upload" />
 					</form>
 									
 				
