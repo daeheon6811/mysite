@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="guestbook">
-	<select id="findAll" resultType="com.douzone.mysite.vo.GuestBookVo">
+	<select id="findAll" resultType="guestbookvo">
 	<![CDATA[
   select no , name , password , message , reg_date from guestbook
   	]]>
 	</select>
 	
-	<insert id ="insert" parameterType="com.douzone.mysite.vo.GuestBookVo">	
+	<insert id ="insert" parameterType="guestbookvo">	
 	<![CDATA[ 
 	 insert into guestbook values(null, #{name} , #{password} , #{message} , now())
 	]]>
@@ -20,7 +20,7 @@
 	</selectKey>
 	</insert>
 	
-	<delete id ="delete" parameterType="com.douzone.mysite.vo.GuestBookVo">
+	<delete id ="delete" parameterType="guestbookvo">
 	<![CDATA[ 
 	 delete from guestbook where no = #{no} and password = #{password}
 	]]>
