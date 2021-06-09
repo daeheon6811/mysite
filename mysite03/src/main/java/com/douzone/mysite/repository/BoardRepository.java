@@ -17,6 +17,7 @@ public class BoardRepository {
 	private SqlSession sqlSession;
 	
 	
+	
 	String board = "board.";
 
 	
