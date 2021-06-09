@@ -21,7 +21,7 @@
 			<div id="content">
 				<div id="site-introduction">
 					<img id="profile"
-						src="${pageContext.request.contextPath }/assets/images/profile.jpg"
+						src="${pageContext.request.contextPath}/images/20215941643953.jpg"
 						style="width: 120px">
 					<h2>안녕하세요. 박대헌의 mysite에 오신 것을 환영합니다.</h2>
 					<p>
