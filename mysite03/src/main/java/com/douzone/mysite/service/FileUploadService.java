@@ -1,19 +1,23 @@
 package com.douzone.mysite.service;
 
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.mysite.exception.FileUploadException;
+import com.douzone.mysite.exception.GlobalExceptionHandler;
+
 @Service
 public class FileUploadService {
+	private static final Log LOGGER = LogFactory.getLog(GlobalExceptionHandler.class);
 	private static final String SAVE_PATH = "/uploads-mysite";
 	private static final String URL_BASE = "/images";
-	
 	public String restore(MultipartFile file) {
 		String url = null;
 		
@@ -27,9 +31,9 @@ public class FileUploadService {
 			String saveFilename = generateSaveFilename(extName);
 			long fileSize = file.getSize();
 			
-			System.out.println("############ " + originFilename);
-			System.out.println("############ " + fileSize);
-			System.out.println("############ " + saveFilename);
+			LOGGER.info("############ " + originFilename);
+			LOGGER.info("############ " + fileSize);
+			LOGGER.info("############ " + saveFilename);
 		
 			byte[] data = file.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
@@ -38,7 +42,7 @@ public class FileUploadService {
 			
 			url = URL_BASE + "/" + saveFilename;
 		} catch (IOException e) {
-			throw new RuntimeException("file upload error:" + e);
+			throw new FileUploadException("file upload error:" + e);
 		}
 		
 		return url;
