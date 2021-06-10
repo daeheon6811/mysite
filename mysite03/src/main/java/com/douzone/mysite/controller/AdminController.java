@@ -25,7 +25,7 @@ public class AdminController {
 	@Autowired
 	private FileUploadService fileUploadService;
 
-	@Auth(role = "ADMIN")
+
 	@RequestMapping("")
 	public String main(Model model) {
 
@@ -40,12 +40,13 @@ public class AdminController {
 
 		String url = fileUploadService.restore(file1);
 
+
 		model.addAttribute("url", url);
 
 		return "redirect:/admin";
 	}
 
-	@Auth(role = "ADMIN")
+
 	@RequestMapping(value = "/main/update", method = RequestMethod.POST)
 	public String updateMain(@ModelAttribute SiteVo vo  , @RequestParam("file1") MultipartFile file1 ) {
 
@@ -55,13 +56,12 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
-	@Auth(role = "ADMIN")
 	@RequestMapping("/guestbook")
 	public String guestbook() {
 		return "admin/guestbook";
 	}
 
-	@Auth(role = "ADMIN")
+	
 	@RequestMapping("/board")
 	public String board() {
 		return "admin/board";

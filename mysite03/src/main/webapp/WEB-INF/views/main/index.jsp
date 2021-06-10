@@ -12,6 +12,8 @@
 <link href="${pageContext.request.contextPath}/assets/css/main.css"
 	rel="stylesheet" type="text/css">
 </head>
+
+
 <body>
 	<div id="container">
 		<div id="header">

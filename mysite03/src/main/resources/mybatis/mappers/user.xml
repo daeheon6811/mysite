@@ -14,10 +14,16 @@ select no, name , role from user  where email = #{e} and password = #{p}
 	<!-- 요기선 아무거나 넣어도됨 -->
 	<select id="findByNo" parameterType="long" resultType="uservo">
 	<![CDATA[
-      select no, email, password, name , gender from user  where no = #{no} 
+      select no, email, password, name , gender from user  where no = #{no}
   	]]>
 	</select>
 
+	<!-- 요기선 아무거나 넣어도됨 -->
+	<select id="findByEmail" parameterType="string" resultType="uservo">
+	<![CDATA[
+  select  no, email, password, name , gender from user  where email = #{email}
+  	]]>
+	</select>
 	<update id="update" parameterType="uservo">
 		<choose>
 			<when test='password == "" '>
@@ -57,7 +63,7 @@ select no, name , role from user  where email = #{e} and password = #{p}
 	 insert
 	 into 
 	 user 
-	 values(null , #{name} ,#{email} ,#{password} ,#{gender} , #{admin})
+	 values(null , #{name} ,#{email} ,#{password} ,#{gender} , #{role})
 	 
 	]]>
 

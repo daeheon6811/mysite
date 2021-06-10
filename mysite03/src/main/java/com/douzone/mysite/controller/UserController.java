@@ -11,8 +11,6 @@ import com.douzone.mysite.security.AuthUser;
 import com.douzone.mysite.service.UserServcie;
 import com.douzone.mysite.vo.UserVo;
 
-
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -26,7 +24,7 @@ public class UserController {
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(UserVo vo) {
-		vo.setRole("admin");
+		// vo.setRole("ADMIN");
 		userService.join(vo);
 		return "redirect:/user/joinsuccess";
 	}
@@ -56,7 +54,7 @@ public class UserController {
 	 * 
 	 * // 로그인 처리 seesion.setAttribute("authUser", authUser); return "redirect:/"; }
 	 */
-	
+
 	/*
 	 * @RequestMapping("/logout") public String logout(HttpSession session) { UserVo
 	 * authUser = (UserVo) session.getAttribute("authUser");
@@ -69,22 +67,22 @@ public class UserController {
 	 * 
 	 * return "redirect:/"; }
 	 */
-	
+
 	@Auth
-	@RequestMapping(value="/update", method=RequestMethod.GET)
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@AuthUser UserVo authUser, Model model) {
 		UserVo userVo = userService.getUser(authUser.getNo());
 		model.addAttribute("user", userVo);
 		return "user/update";
 	}
-	
+
 	@Auth
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(@AuthUser UserVo authUser, UserVo userVo) {
 		userVo.setNo(authUser.getNo());
 		userService.updateUser(userVo);
 		authUser.setName(userVo.getName());
-		
+
 		return "redirect:/user/update";
 	}
 }

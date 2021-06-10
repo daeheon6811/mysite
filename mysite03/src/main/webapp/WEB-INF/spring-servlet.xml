@@ -12,14 +12,34 @@
 
 	<context:annotation-config />
 	<context:component-scan
-		base-package="com.douzone.mysite.controller , com.douzone.mysite.exception" />
+		base-package="com.douzone.mysite.controller ,com.douzone.mysite.controller.api , com.douzone.mysite.exception" />
 	<mvc:annotation-driven>
+		<!-- Validator, conversionService, messageConverter를 자동으로 등록 -->
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
 		<mvc:argument-resolvers>
 			<bean
 				class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver"></bean>
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
+	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />
 
 	<context:component-scan
@@ -55,6 +75,7 @@
 			<bean class="com.douzone.mysite.security.Authinteceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
+	<!-- ViewResolver 설정 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -63,4 +84,6 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="1" />
 	</bean>
+
+
 </beans>
