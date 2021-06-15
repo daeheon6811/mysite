@@ -25,7 +25,6 @@ public class AdminController {
 	@Autowired
 	private FileUploadService fileUploadService;
 
-
 	@RequestMapping("")
 	public String main(Model model) {
 
@@ -40,18 +39,25 @@ public class AdminController {
 
 		String url = fileUploadService.restore(file1);
 
-
 		model.addAttribute("url", url);
 
 		return "redirect:/admin";
 	}
 
-
 	@RequestMapping(value = "/main/update", method = RequestMethod.POST)
-	public String updateMain(@ModelAttribute SiteVo vo  , @RequestParam("file1") MultipartFile file1 ) {
+	public String updateMain(@ModelAttribute SiteVo vo, @RequestParam("file1") MultipartFile file1) {
+
+		
 
 		String url = fileUploadService.restore(file1);
-		vo.setProfile(url);
+	
+		if (url == null || url.equals("null") ) {
+
+			vo.setProfile("notImage");
+		} else {
+			vo.setProfile(url);
+		}
+
 		sitesevice.update(vo);
 		return "redirect:/admin";
 	}
@@ -61,7 +67,6 @@ public class AdminController {
 		return "admin/guestbook";
 	}
 
-	
 	@RequestMapping("/board")
 	public String board() {
 		return "admin/board";

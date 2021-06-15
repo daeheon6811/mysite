@@ -23,63 +23,55 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 public class MvcConfig extends WebMvcConfigurerAdapter {
 	
-	//View Resolver
+	// View Resolver
 	@Bean
 	public ViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver =  new InternalResourceViewResolver();
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/views");
+		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
-		viewResolver.setExposeContextBeansAsAttributes(false);
+		viewResolver.setExposeContextBeansAsAttributes(true);
+		
 		return viewResolver;
 	}
 	
 	// Message Converters
-	
 	@Bean
 	public StringHttpMessageConverter stringHttpMessageConverter() {
-		
-		StringHttpMessageConverter messageConverter = new StringHttpMessageConverter();
-		Arrays.asList(
-				new MediaType("text" , "html" , Charset.forName("utf-8"))
-				);
-		
-		
+		StringHttpMessageConverter messageConverter = new StringHttpMessageConverter();  
+		messageConverter.setSupportedMediaTypes(
+			Arrays.asList(
+				new MediaType("text", "html", Charset.forName("utf-8"))
+			)
+		);
 		return messageConverter;
-		
 	}
 	
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-		
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
-	    .indentOutput(true)
-		.dateFormat(new SimpleDateFormat("yyyy-mm-dd"));
-	
-		MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
+			.indentOutput(true)
+			.dateFormat(new SimpleDateFormat("yyyy-mm-dd"));
 		
-		
-		messageConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("application" , "json" , Charset.forName("utf-8"))));
+		MappingJackson2HttpMessageConverter messageConverter
+			= new MappingJackson2HttpMessageConverter(builder.build());
+		messageConverter.setSupportedMediaTypes(
+			Arrays.asList(
+				new MediaType("application", "json", Charset.forName("utf-8"))	
+			)
+		);
 		return messageConverter;
-
 	}
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(stringHttpMessageConverter());
 		converters.add(mappingJackson2HttpMessageConverter());
-		
 	}
 
-	
-	// Default Servlet Handler등록 작업
+	// Default Servlet Handler 등록 작업
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-	      configurer.enable();
+		configurer.enable();
 	}
-	
-
-	
-	
-
 }
