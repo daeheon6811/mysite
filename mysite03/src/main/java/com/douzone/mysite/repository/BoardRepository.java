@@ -78,6 +78,7 @@ public class BoardRepository {
 	
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		System.out.println("contents" + contents);
 		map.put("no",no);
 		map.put("title",title);
 		map.put("contents",contents);

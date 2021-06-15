@@ -5,7 +5,7 @@
 	<select id="findByNo" resultType="boardvo"
 		parameterType="long">
 	<![CDATA[
-select a.no as no, a.title as title , a.contents as content, 
+select a.no as no, a.title as title , a.contents as contents,
 				a.reg_date as redDate, a.hit as hit, a.group_no as groupNo, a.order_no as orderNo,
 		  		a.depth as depth,a.user_no as userNo, b.name as userName
 		  from board a, user b 

@@ -177,7 +177,8 @@ public class BoardController {
 	@RequestMapping(value = "/modify/{no}", method = RequestMethod.POST)
 	public String modify(@PathVariable("no") Long no, @RequestParam(value = "title") String title,
 			@RequestParam(value = "contents") String contents) {
-
+		
+	
 		boardService.updateView(no, title, contents);
 		return "redirect:/board";
 	}
