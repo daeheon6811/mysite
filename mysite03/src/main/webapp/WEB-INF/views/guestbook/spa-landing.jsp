@@ -178,7 +178,7 @@ $(function(){
 			//1. password 비우기
 			//2. no 비우기
 			//3. error message 숨기기.
-			$(".validateTips error").css('display','none');
+			$(".validateTips.error").hide();
 			
 			
 			$("#hidden-no").val('');
