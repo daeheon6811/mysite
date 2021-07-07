@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="guestbook">
+
+<select id="findAllByNo" resultType="guestbookvo" parameterType="long">
+	<![CDATA[
+ select no , name , password , message , reg_date
+ from guestbook 
+  where no <= #{no}
+order by no desc
+ limit 0 , 3;
+  	]]>
+	</select>
+	
+	<select id = "MaxNo" resultType = "long">
+	 SELECT MAX(no) FROM guestbook
+	</select>
+	
+	
+	<!--  AJAX 필요할 구간 -->
+	
 	<select id="findAll" resultType="guestbookvo">
 	<![CDATA[
   select no , name , password , message , reg_date from guestbook

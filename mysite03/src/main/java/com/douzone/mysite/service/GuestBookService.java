@@ -14,8 +14,17 @@ public class GuestBookService {
 	@Autowired
 	GuestBookRepository guestBookRepository;
 
+	
+	public Long getMaxNo() {
+		return guestBookRepository.MaxNo();
+	}
+	
 	public List<GuestBookVo> getMessageList() {
 		return guestBookRepository.findAll();
+	}
+	
+	public List<GuestBookVo> getMessageList(Long no/* 기준 */) {
+		return guestBookRepository.findAll(no);
 	}
 
 	public boolean deleteMessage(Long no, String password) {

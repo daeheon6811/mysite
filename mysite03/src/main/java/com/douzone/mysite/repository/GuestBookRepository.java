@@ -19,6 +19,12 @@ public class GuestBookRepository {
 	@Autowired
 	private DataSource dataSource;
 
+	
+	public Long MaxNo() {
+		
+		return sqlSession.selectOne("guestbook.MaxNo");
+	}
+	
 	public Boolean insert(GuestBookVo vo) {
 		
 		System.out.println(vo);
@@ -37,6 +43,10 @@ public class GuestBookRepository {
 
 	public List<GuestBookVo> findAll() {
 		return sqlSession.selectList("guestbook.findAll");
+	}
+	
+	public List<GuestBookVo> findAll(Long no) {
+		return sqlSession.selectList("guestbook.findAllByNo", no);	
 	}
 
 }
