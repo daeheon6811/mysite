@@ -10,9 +10,23 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/guestbook-spa.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/ejs/ejs.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function(){
+	
+	var render = function(vo, mode){
+		html =
+			"<li data-no='" + vo.no + "'>" + 
+				"<strong>" + vo.name + "</strong>" +
+				"<p>" + vo.message + "</p>" +
+				"<strong></strong>" + 
+				"<a href='' data-no='" + vo.no + "'>삭제</a>" + 
+			"</li>";
+		$("#list-guestbook")[mode ? "append" : "prepend"](html);
+	}
+	
+	
 	var page = 0;
 	/* guestbook application based on jQuery */
 	/*
@@ -36,9 +50,7 @@ $(function(){
 	- 삭제가 성공한 경우(no > 0), data-no=10 인 li element를 삭제
 	- 참고: /ch08/test/gb/ex3
 	*/
-	var render = function(vo){
-		
-	}
+	
 	var fetch = function(){
 		
 		$.ajax({
@@ -61,13 +73,10 @@ $(function(){
 		});	
 	}
 	
-	$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-	     if($(window).scrollTop() >= $(document).height() - $(window).height()){
-	    	 page = page + 3
-				fetch();		
-	     } 
-	});
 
+	var listItemEJS = new EJS({
+		url: "${pageContext.request.contextPath }/assets/ejs/listitem-template.ejs"
+	});
 
 	$(function(){
 		
@@ -78,6 +87,14 @@ $(function(){
 		
 		// 최초 데이터 가져오기
 		fetch();
+	
+		$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+			
+		     if($(window).scrollTop() >= $(document).height() - $(window).height()){
+		    	 page = page + 3
+					fetch();		
+		     }
+		});
 	});
 	
 	$("#add-form").submit(function(event){
@@ -114,15 +131,8 @@ $(function(){
 			success: function(response){
 				var vo = response.data;
 				
-				html =
-					"<li data-no='" + vo.no + "'>" + 
-						"<strong>" + vo.name + "</strong>" +
-						"<p>" + vo.message + "</p>" +
-						"<strong></strong>" + 
-						"<a href='' data-no='" + vo.no + "'>삭제</a>" + 
-					"</li>";
-					
-				$("#list-guestbook").prepend(html);	
+				var html = listItemEJS.render(response.data);
+				$("#list-guestbook").prepend(html);
 			}
 		});		
 		
